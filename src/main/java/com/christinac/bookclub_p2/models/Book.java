@@ -1,88 +1,77 @@
 package com.christinac.bookclub_p2.models;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="user")
-public class User {
+@Table(name="books")
+public class Book {
 	
-	//attributes
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	@NotEmpty
-	@Size(min=3)
-	private String name;
+	private String title;
 	@NotEmpty
-	@Email
-	private String email;
-	@NotEmpty
-	@Size(min=8)
-	private String password;
-	@Transient
-	private String confirmPass;
+	private String author;
+	@NotBlank
+	@Size(max=1000)
+	private String thoughts; 
 	
-	// relationship to other models
-	@OneToMany(mappedBy="submittedBy",fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<Book> userThoughts;
-
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private User submittedBy;
+	
 	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date createdAt;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
-	//constructor
-	public User() {}
-	
-	//getters and setters
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getEmail() {
-		return email;
+	public String getAuthor() {
+		return author;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
-	public String getPassword() {
-		return password;
+	public String getThoughts() {
+		return thoughts;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setThoughts(String thoughts) {
+		this.thoughts = thoughts;
 	}
-	public String getConfirmPass() {
-		return confirmPass;
+	public User getSubmittedBy() {
+		return submittedBy;
 	}
-	public void setConfirmPass(String confirmPass) {
-		this.confirmPass = confirmPass;
+	public void setSubmittedBy(User submittedBy) {
+		this.submittedBy = submittedBy;
 	}
 	public Date getCreatedAt() {
 		return createdAt;
@@ -97,14 +86,6 @@ public class User {
 		this.updatedAt = updatedAt;
 	}
 	
-	public List<Book> getUserThoughts() {
-		return userThoughts;
-	}
-
-	public void setUserThoughts(List<Book> userThoughts) {
-		this.userThoughts = userThoughts;
-	}
-
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = new Date();
@@ -113,6 +94,4 @@ public class User {
 	protected void onUpdate() {
 		this.updatedAt = new Date();
 	}
-	
-
 }
