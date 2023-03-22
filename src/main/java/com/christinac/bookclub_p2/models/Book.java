@@ -36,7 +36,11 @@ public class Book {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
-	private User submittedBy;
+	private User ownedBy;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="borrower_id")
+	private User bookBorrower;
 	
 	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -67,11 +71,12 @@ public class Book {
 	public void setThoughts(String thoughts) {
 		this.thoughts = thoughts;
 	}
-	public User getSubmittedBy() {
-		return submittedBy;
+
+	public User getOwnedBy() {
+		return ownedBy;
 	}
-	public void setSubmittedBy(User submittedBy) {
-		this.submittedBy = submittedBy;
+	public void setOwnedBy(User ownedBy) {
+		this.ownedBy = ownedBy;
 	}
 	public Date getCreatedAt() {
 		return createdAt;
@@ -86,6 +91,13 @@ public class Book {
 		this.updatedAt = updatedAt;
 	}
 	
+	
+	public User getBookBorrower() {
+		return bookBorrower;
+	}
+	public void setBookBorrower(User bookBorrower) {
+		this.bookBorrower = bookBorrower;
+	}
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = new Date();

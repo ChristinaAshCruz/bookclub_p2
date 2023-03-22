@@ -57,7 +57,7 @@ pageEncoding="UTF-8"%>
               <th scope="col">ID</th>
               <th scope="col">Title</th>
               <th scope="col">Author</th>
-              <th scope="col">Posted By:</th>
+              <th scope="col">Owned By:</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -71,17 +71,17 @@ pageEncoding="UTF-8"%>
               </td>
               <td><c:out value="${book.author}"></c:out></td>
               <c:choose>
-                <c:when test="${book.submittedBy.id == user.id}">
+                <c:when test="${book.ownedBy.id == user.id}">
                   <td class="fw-bold text-primary">You</td>
                 </c:when>
-                <c:when test="${book.submittedBy.id != user.id}">
+                <c:when test="${book.ownedBy.id != user.id}">
                   <td class="fw-bold">
-                    <c:out value="${book.submittedBy.name}"></c:out>
+                    <c:out value="${book.ownedBy.name}"></c:out>
                   </td>
                 </c:when>
               </c:choose>
               <td>
-                <c:if test="${book.submittedBy.id == sessionScope.userId}">
+                <c:if test="${book.ownedBy.id == sessionScope.userId}">
                   <a
                     href="/book/${book.id}/edit"
                     class="btn btn-primary col-3 me-2"

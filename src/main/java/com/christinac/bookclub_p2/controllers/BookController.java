@@ -42,9 +42,9 @@ public class BookController {
 		}
 		Long userId = (Long) session.getAttribute("userId");
 		User user = userServ.findById(userId);
-		List<Book> userBooks = user.getUserThoughts();
+		List<Book> userBooks = user.getBooksOwned();
 		userBooks.add(newBook);
-		newBook.setSubmittedBy(user);
+		newBook.setOwnedBy(user);
 		bookServ.createBook(newBook);
 		return "redirect:/dashboard";
 	}

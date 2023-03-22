@@ -42,8 +42,11 @@ public class User {
 	private String confirmPass;
 	
 	// relationship to other models
-	@OneToMany(mappedBy="submittedBy",fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<Book> userThoughts;
+	@OneToMany(mappedBy="ownedBy",fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<Book> booksOwned;
+	
+	@OneToMany(mappedBy="bookBorrower",fetch=FetchType.LAZY)
+	private List<Book> booksBorrowed;
 
 	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -97,12 +100,23 @@ public class User {
 		this.updatedAt = updatedAt;
 	}
 	
-	public List<Book> getUserThoughts() {
-		return userThoughts;
+	
+	
+	
+	public List<Book> getBooksOwned() {
+		return booksOwned;
 	}
 
-	public void setUserThoughts(List<Book> userThoughts) {
-		this.userThoughts = userThoughts;
+	public void setBooksOwned(List<Book> booksOwned) {
+		this.booksOwned = booksOwned;
+	}
+
+	public List<Book> getBooksBorrowed() {
+		return booksBorrowed;
+	}
+
+	public void setBooksBorrowed(List<Book> booksBorrowed) {
+		this.booksBorrowed = booksBorrowed;
 	}
 
 	@PrePersist

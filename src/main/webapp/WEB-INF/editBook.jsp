@@ -74,15 +74,8 @@ pageEncoding="UTF-8"%>
           <div class="mb-3">
             <form:errors path="thoughts" class="text-danger mb-3"></form:errors>
           </div>
-          <form:input
-            path="submittedBy"
-            value="${book.submittedBy.id}"
-            type="hidden"
-          />
-          <form:errors
-            path="submittedBy"
-            class="text-danger mb-3"
-          ></form:errors>
+          <form:input path="ownedBy" value="${book.ownedBy.id}" type="hidden" />
+          <form:errors path="ownedBy" class="text-danger mb-3"></form:errors>
           <form:input path="id" value="${book.id}" type="hidden" />
           <form:errors path="id" class="text-danger mb-3"></form:errors>
           <button class="btn btn-primary col-2">Submit</button>
