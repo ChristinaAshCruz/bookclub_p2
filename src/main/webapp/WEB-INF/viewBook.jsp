@@ -37,12 +37,12 @@ pageEncoding="UTF-8"%>
     <div class="card mb-3 p-3" id="info-row">
       <h4>
         <c:choose>
-          <c:when test="${book.submittedBy.id == sessionScope.userId}">
+          <c:when test="${book.ownedBy.id == sessionScope.userId}">
             <span class="text-danger">You</span>
           </c:when>
-          <c:when test="${book.submittedBy.id != sessionScope.userId}">
+          <c:when test="${book.ownedBy.id != sessionScope.userId}">
             <span class="text-danger"
-              ><c:out value="${book.submittedBy.name}"></c:out
+              ><c:out value="${book.ownedBy.name}"></c:out
             ></span>
           </c:when>
         </c:choose>
@@ -54,22 +54,20 @@ pageEncoding="UTF-8"%>
     </div>
 
     <div class="card p-3 mb-3">
-      <h4>
-        Here are <c:out value="${book.submittedBy.name}"></c:out>'s thoughts:
-      </h4>
+      <h4>Here are <c:out value="${book.ownedBy.name}"></c:out>'s thoughts:</h4>
       <hr />
       <p>
         <c:out value="${book.thoughts}"></c:out>
       </p>
       <hr />
     </div>
-    <c:if test="${book.submittedBy.id == sessionScope.userId}">
+    <c:if test="${book.ownedBy.id == sessionScope.userId}">
       <div class="d-flex justify-content-end">
         <a href="/book/${book.id}/edit" class="btn btn-primary me-2 col-1"
           >Edit</a
         >
         <a href="/book/${book.id}/delete" class="btn btn-danger col-1"
-          >Danger</a
+          >Delete</a
         >
       </div>
     </c:if>

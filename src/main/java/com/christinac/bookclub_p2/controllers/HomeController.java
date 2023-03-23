@@ -63,7 +63,6 @@ public class HomeController {
 		}
 	}
 	
-	
 	@GetMapping("/dashboard")
 	public String dashboard(Model model, HttpSession session) {
 		if(session.getAttribute("userId") == null) {
@@ -76,5 +75,25 @@ public class HomeController {
 			model.addAttribute("allBooks", allBooks);
 			return "dashboard.jsp";
 		}
+	}
+	
+	
+	@GetMapping("/bookmarket")
+	public String bookmarket(Model model, HttpSession session) {
+		if(session.getAttribute("userId") == null) {
+			return "redirect:/";
+		} else {
+			Long userId = (Long) session.getAttribute("userId");
+			User user = userServ.findById(userId);
+			model.addAttribute("user", user);
+			List<Book> allBooks = bookServ.findAll();
+			model.addAttribute("allBooks", allBooks);
+			return "bookMarket.jsp";
+		}
+	}
+	
+	@GetMapping("/logout")
+	public String bookmarket() {
+		return "redirect:/";
 	}
 }

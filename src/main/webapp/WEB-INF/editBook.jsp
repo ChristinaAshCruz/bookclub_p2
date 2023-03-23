@@ -30,7 +30,7 @@ pageEncoding="UTF-8"%>
         Edit <em><c:out value="${book.title}"></c:out></em>
       </h1> -->
       <!--  -->
-      <h1>Edit Book Entry</h1>
+      <h1>Edit: <c:out value="${bookDetails.title}"></c:out></h1>
       <span
         ><a href="/dashboard" class="btn btn-primary"
           >Back to Dashboard</a
@@ -81,6 +81,7 @@ pageEncoding="UTF-8"%>
           <button class="btn btn-primary col-2">Submit</button>
         </div>
       </form:form>
+      <a href="/book/${bookDetails.id}/delete" class="btn btn-danger">Delete</a>
     </div>
   </body>
 </html>
